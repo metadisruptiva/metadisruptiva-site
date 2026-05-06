@@ -65,9 +65,30 @@
     }
 
     .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
       font-size: 1.05rem;
       font-weight: 800;
       letter-spacing: .06em;
+    }
+
+    .brand-logo-wrap {
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      padding: 0;
+    }
+
+    .brand-logo {
+      height: 34px;
+      width: auto;
+      display: block;
+    }
+
+    .brand-text {
+      color: var(--text);
+      white-space: nowrap;
     }
 
     .nav-links {
@@ -403,7 +424,12 @@
 <body>
   <header>
     <div class="container nav">
-      <div class="brand">METADISRUPTIVA</div>
+      <a href="#" class="brand">
+        <span class="brand-logo-wrap">
+          <img src="images/logo.png" alt="Metadisruptiva logo" class="brand-logo">
+        </span>
+        <span class="brand-text">METADISRUPTIVA</span>
+      </a>
       <nav class="nav-links">
         <a href="#about">About</a>
         <a href="#projects">Projects</a>
