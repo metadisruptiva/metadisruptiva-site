@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Metadisruptiva | Robotics & AI R&D</title>
+  <style>
+    :root {
+      --bg: #07101d;
+      --bg-2: #0b1220;
+      --card: rgba(255,255,255,.04);
+      --card-strong: rgba(255,255,255,.06);
+      --muted: #9fb0d0;
+      --text: #eef4ff;
+      --accent: #5eead4;
+      --accent-2: #60a5fa;
+      --line: rgba(255,255,255,.08);
+      --line-strong: rgba(255,255,255,.14);
+      --shadow: 0 16px 40px rgba(0,0,0,.28);
+      --radius: 22px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: Inter, "Segoe UI", Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(96,165,250,.14), transparent 32%),
+        radial-gradient(circle at top right, rgba(94,234,212,.10), transparent 28%),
+        linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
+      color: var(--text);
+      line-height: 1.65;
+    }
+
+    img, video {
+      max-width: 100%;
+      display: block;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .container {
+      width: min(1160px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(12px);
+      background: rgba(7,16,29,.78);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 16px 0;
+    }
+
+    .brand {
+      font-size: 1.05rem;
+      font-weight: 800;
+      letter-spacing: .06em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 18px;
+      color: var(--muted);
+      font-size: .95rem;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      transition: color .2s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+    }
+
+    main {
+      overflow: hidden;
+    }
+
+    section {
+      padding: 42px 0;
+    }
+
+    .hero {
+      padding: 72px 0 52px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.08fr .92fr;
+      gap: 34px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      color: var(--accent);
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .10em;
+      font-size: .80rem;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      font-size: clamp(2.35rem, 4.3vw, 4.4rem);
+      line-height: 1.03;
+      margin: 0 0 18px;
+      max-width: 720px;
+    }
+
+    h2 {
+      font-size: clamp(1.6rem, 3vw, 2.35rem);
+      margin: 0 0 10px;
+    }
+
+    .lead {
+      color: var(--muted);
+      font-size: 1.08rem;
+      max-width: 680px;
+      margin: 0;
+    }
+
+    .cta-row {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 28px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 18px;
+      border-radius: 14px;
+      border: 1px solid var(--line-strong);
+      font-weight: 700;
+      transition: transform .18s ease, border-color .18s ease, background .18s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      border-color: rgba(255,255,255,.2);
+    }
+
+    .btn.primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #08101d;
+      border: none;
+      box-shadow: 0 10px 24px rgba(96,165,250,.18);
+    }
+
+    .hero-card,
+    .card,
+    .funding {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card {
+      overflow: hidden;
+        aspect-ratio: 16 / 11;
+        min-height: 0;
+    }
+
+    .hero-image {
+        width: 100%;
+        height: 100%;
+        min-height: 0;
+        background: #0e1830;
+        overflow: hidden;
+    }
+
+    .hero-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+    }
+
+    .section-intro {
+      color: var(--muted);
+      max-width: 780px;
+      margin-bottom: 24px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      padding: 22px;
+    }
+
+    .card h3 {
+      margin: 0 0 10px;
+      font-size: 1.08rem;
+    }
+
+    .card p,
+    .card li,
+    .muted,
+    .funding p {
+      color: var(--muted);
+    }
+
+    .project-feature {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: 30px;
+  align-items: start;
+}
+
+.project-feature > * {
+  min-width: 0;
+}
+
+.project-media {
+  min-height: 320px;
+  aspect-ratio: 16 / 10;
+  background: #101b34;
+  border-radius: 18px;
+  border: 1px solid var(--line);
+  overflow: hidden;
+  padding: 0;
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 10px 24px rgba(0,0,0,.20);
+}
+
+.project-media video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.project-meta {
+  display: grid;
+  gap: 14px;
+  min-width: 0;
+  position: relative;
+  z-index: 2;
+}
+
+.project-meta .card {
+  box-shadow: 0 8px 20px rgba(0,0,0,.16);
+}
+
+    .pill-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 7px 11px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.05);
+      border: 1px solid var(--line);
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    .media-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .media-item {
+      display: grid;
+      gap: 10px;
+    }
+
+    .media-box {
+      aspect-ratio: 16 / 10;
+      background: #0f1830;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .media-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .funding {
+      padding: 24px;
+      background: linear-gradient(180deg, rgba(96,165,250,.10), rgba(96,165,250,.05));
+    }
+
+    .funding strong {
+      color: var(--text);
+    }
+
+    .funding-bar {
+      margin-top: 16px;
+    }
+
+    .funding-bar img {
+      display: block;
+      max-width: 100%;
+      width: auto;
+      max-height: 52px;
+      height: auto;
+    }
+
+    footer {
+      border-top: 1px solid var(--line);
+      margin-top: 34px;
+      padding: 28px 0 42px;
+      color: var(--muted);
+    }
+
+    @media (max-width: 1024px) {
+      .hero-grid,
+      .project-feature,
+      .grid-3,
+      .media-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 48px;
+      }
+
+      .hero-card,
+      .hero-image {
+        min-height: 300px;
+      }
+
+      .project-media {
+        min-height: 280px;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .container {
+        width: min(1160px, calc(100% - 24px));
+      }
+
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .nav-links {
+        gap: 12px;
+        font-size: .92rem;
+      }
+
+      .hero {
+        padding: 34px 0 32px;
+      }
+
+      h1 {
+        font-size: clamp(2rem, 10vw, 2.8rem);
+      }
+
+      .lead {
+        font-size: 1rem;
+      }
+
+      .hero-card,
+      .hero-image {
+        min-height: 240px;
+      }
+
+      .project-media {
+        min-height: 220px;
+      }
+
+      .card,
+      .funding {
+        padding: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">METADISRUPTIVA</div>
+      <nav class="nav-links">
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#rapid">RAPID</a>
+        <a href="#media">Media</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">Robotics · AI · Autonomous Systems</div>
+          <h1>Applied robotics R&amp;D for real-world environmental and industrial challenges.</h1>
+          <p class="lead">
+            Metadisruptiva develops robotics and AI systems for field deployment, intelligent sensing, autonomous response, and technology transfer. The company combines research-level know-how with rapid prototyping to turn advanced concepts into working demonstrators and future products.
+          </p>
+          <div class="cta-row">
+            <a class="btn primary" href="#rapid">View RAPID Project</a>
+            <a class="btn" href="#contact">Get in Touch</a>
+          </div>
+        </div>
+
+        <div class="hero-card">
+          <div class="hero-image">
+            <img src="images/hero_main.png" alt="Metadisruptiva robotics and AI systems">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="container">
+        <h2>About</h2>
+        <p class="section-intro">
+          Metadisruptiva is a technology company focused on robotics research and development, autonomous systems, AI-enabled perception, and prototype validation for future products and applied innovation projects.
+        </p>
+        <div class="grid-3">
+          <div class="card">
+            <h3>Robotics R&amp;D</h3>
+            <p>Design and rapid development of intelligent robotic systems for monitoring, intervention, automation, and field experimentation.</p>
+          </div>
+          <div class="card">
+            <h3>AI &amp; Perception</h3>
+            <p>Computer vision, sensing, detection, and adaptive decision-making for challenging outdoor and real-world environments.</p>
+          </div>
+          <div class="card">
+            <h3>Prototype to Product</h3>
+            <p>Fast MVP-oriented execution for research projects, pilot systems, technical demonstrations, and future commercialization paths.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="container">
+        <h2>Projects</h2>
+        <div class="card">
+          <h3>Featured project: RAPID</h3>
+          <p>RAPID is the current featured project and the first public technology page on the site.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="rapid">
+      <div class="container">
+        <h2>RAPID Project</h2>
+        <p class="section-intro">
+          Development of an MVP robotic system for the protection of solar infrastructures against bird interference, combining computer vision, robotic actuation, and adaptive deterrence strategies.
+        </p>
+        <div class="project-feature">
+          <div class="project-media">
+            <video autoplay muted loop playsinline>
+              <source src="videos/rapid-hero.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <div class="project-meta">
+            <div class="card">
+              <h3>What RAPID does</h3>
+              <p>
+                RAPID aims to detect birds in the operational area, interpret the situation in real time, and trigger deterrence actions through a bio-inspired robotic platform using sound, motion, and intelligent behavior selection.
+              </p>
+              <div class="pill-row">
+                <span class="pill">Robotics</span>
+                <span class="pill">Computer Vision</span>
+                <span class="pill">AI</span>
+                <span class="pill">Solar Infrastructure</span>
+                <span class="pill">Climate-positive innovation</span>
+              </div>
+            </div>
+            <div class="card">
+              <h3>Core objectives</h3>
+              <ul>
+                <li>Develop a functional MVP</li>
+                <li>Integrate bird detection capabilities</li>
+                <li>Test sound-based and visual deterrence responses</li>
+                <li>Validate the system through prototype demonstrations</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="media">
+      <div class="container">
+        <h2>Media &amp; Demonstrations</h2>
+        <p class="section-intro">
+          The images below illustrate the core problem addressed by RAPID, the detection stage, and the  deterrence effect when the robotic platform approaches the birds.
+        </p>
+        <div class="media-grid">
+          <div class="media-item">
+            <div class="media-box">
+              <img src="images/dirty.png" alt="Solar panel heavily dirtied by birds">
+            </div>
+            <p class="muted">Bird activity can significantly dirty solar panels, reducing efficiency and increasing maintenance needs.</p>
+          </div>
+          <div class="media-item">
+            <div class="media-box">
+              <img src="images/detection.png" alt="Bird detection on solar panels">
+            </div>
+            <p class="muted">AI-based visual detection can identify multiple birds on solar infrastructure in real time.</p>
+          </div>
+          <div class="media-item">
+            <div class="media-box">
+              <img src="images/deterance.png" alt="Birds flying away as RAPID drone approaches">
+            </div>
+            <p class="muted">RAPID is designed to trigger a deterrence response and push birds away from the protected area.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="funding">
+      <div class="container">
+        <h2>Funding</h2>
+        <div class="funding">
+          <p><strong>Project title:</strong> Desenvolvimento de MVP do Sistema Robótico RAPID para Proteção de Infraestruturas Solares</p>
+          <p><strong>Beneficiary:</strong> Metamorfose Disruptiva, Lda.</p>
+          <p><strong>Programme:</strong> Vouchers para Startups – Novos Produtos Verdes e Digitais</p>
+          <p><strong>Support:</strong> Plano de Recuperação e Resiliência (PRR) / European Union – NextGenerationEU</p>
+          <div class="funding-bar">
+            <img src="images/prr_bar.png" alt="PRR and European Union NextGenerationEU funding logos">
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="contact">
+    <div class="container">
+      <strong>Metadisruptiva</strong><br>
+      Lisbon, Portugal<br>
+      Email: contact@metadisruptiva.com<br>
+      <div style="margin-top:10px;">© 2026 Metadisruptiva. All rights reserved.</div>
+    </div>
+  </footer>
+</body>
+</html>
